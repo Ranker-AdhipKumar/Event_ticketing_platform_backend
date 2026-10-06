@@ -1,0 +1,76 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ticketing_api
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - NODE_ENV=production
+      - DB_CLIENT=postgres
+      - DATABASE_URL=postgres://ticketing_user:ticketing_pass@postgres:5432/event_ticketing_db
+      - REDIS_ENABLED=true
+      - REDIS_URL=redis://redis:6379
+      - JWT_ACCESS_SECRET=production_super_secret_access_jwt_key_32_chars_min!
+      - JWT_REFRESH_SECRET=production_super_secret_refresh_jwt_key_32_chars_min!
+      - JWT_ACCESS_EXPIRATION=15m
+      - BOOKING_RATE_LIMIT_WINDOW_MS=60000
+      - BOOKING_RATE_LIMIT_MAX=5
+      - CANCELLATION_WINDOW_HOURS=24
+      - SMTP_HOST=mailhog
+      - SMTP_PORT=1025
+      - SMTP_FROM=tickets@eventticketing.com
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      mailhog:
+        condition: service_started
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: ticketing_postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=ticketing_user
+      - POSTGRES_PASSWORD=ticketing_pass
+      - POSTGRES_DB=event_ticketing_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ticketing_user -d event_ticketing_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: ticketing_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: ticketing_mailhog
+    restart: unless-stopped
+    ports:
+      - "1025:1025" # SMTP port
+      - "8025:8025" # Web UI port
+
+volumes:
+  pgdata:
+  redisdata:

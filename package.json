@@ -1,0 +1,54 @@
+{
+  "name": "event-ticketing-platform-backend",
+  "version": "1.0.0",
+  "description": "Production-grade Event Ticketing Platform Backend API with concurrency-safe booking, RBAC, JWT rotation, and OpenAPI docs",
+  "main": "dist/server.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc && node -e \"import('fs').then(fs => { if (!fs.existsSync('dist/db')) fs.mkdirSync('dist/db', {recursive: true}); fs.copyFileSync('src/db/schema.sql', 'dist/db/schema.sql'); })\"",
+    "start": "node dist/server.js",
+    "dev": "tsx watch src/server.ts",
+    "test": "node --test --test-concurrency=1 --import tsx tests/**/*.test.ts",
+    "test:concurrency": "node --test --import tsx tests/concurrency.test.ts"
+  },
+  "keywords": [
+    "event-ticketing",
+    "concurrency",
+    "express",
+    "typescript",
+    "rbac",
+    "jwt",
+    "openapi",
+    "swagger"
+  ],
+  "author": "Backend Engineering Team",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "helmet": "^8.0.0",
+    "ioredis": "^5.5.0",
+    "jsonwebtoken": "^9.0.2",
+    "nodemailer": "^6.10.0",
+    "pg": "^8.13.3",
+    "swagger-ui-express": "^5.0.1",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/ioredis": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.9",
+    "@types/node": "^22.13.9",
+    "@types/nodemailer": "^6.4.17",
+    "@types/pg": "^8.11.11",
+    "@types/supertest": "^6.0.2",
+    "@types/swagger-ui-express": "^4.1.8",
+    "supertest": "^7.0.0",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
+  }
+}
