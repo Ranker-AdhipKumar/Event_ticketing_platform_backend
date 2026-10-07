@@ -12,6 +12,10 @@ async function bootstrap() {
     await db.init();
     console.log(`[Database] Connected successfully (${config.db.client} backend).`);
 
+    // Seed sample events if database is empty
+    const { seedInitialData } = await import('./services/seed.service.js');
+    await seedInitialData();
+
     // Initialize Redis (optional, with graceful fallback)
     if (config.redis.enabled) {
       initRedis();

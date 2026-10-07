@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
+import path from 'path';
 import swaggerUi from 'swagger-ui-express';
 import authRoutes from './routes/auth.routes.js';
 import eventRoutes from './routes/event.routes.js';
@@ -41,6 +42,14 @@ export function createApp() {
     res.status(200).send(openApiSpec);
   });
   app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(openApiSpec));
+
+  // Serve interactive live UI at root / and /demo
+  app.use(express.static('src/public'));
+  app.use(express.static('dist/public'));
+  app.get(['/', '/demo'], (_req, res) => {
+    const htmlPath = path.join(process.cwd(), 'src', 'public', 'index.html');
+    res.sendFile(htmlPath);
+  });
 
   // Mount API modules
   app.use('/api/auth', authRoutes);

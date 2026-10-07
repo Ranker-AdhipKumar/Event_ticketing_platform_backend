@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/index.ts",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "api/index.ts"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production",
+    "DB_CLIENT": "sqlite",
+    "SQLITE_DB_PATH": "/tmp/tickets.db",
+    "JWT_ACCESS_SECRET": "permanent_live_demo_access_secret_key_32_chars!",
+    "JWT_REFRESH_SECRET": "permanent_live_demo_refresh_secret_key_32_chars!"
+  }
+}

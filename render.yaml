@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: event-ticketing-backend
+    env: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: DB_CLIENT
+        value: sqlite
+      - key: SQLITE_DB_PATH
+        value: ./data/tickets.db
+      - key: JWT_ACCESS_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: BOOKING_RATE_LIMIT_MAX
+        value: 5
+      - key: CANCELLATION_WINDOW_HOURS
+        value: 24

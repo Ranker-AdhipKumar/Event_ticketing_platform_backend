@@ -5,7 +5,7 @@
   "main": "dist/server.js",
   "type": "module",
   "scripts": {
-    "build": "tsc && node -e \"import('fs').then(fs => { if (!fs.existsSync('dist/db')) fs.mkdirSync('dist/db', {recursive: true}); fs.copyFileSync('src/db/schema.sql', 'dist/db/schema.sql'); })\"",
+    "build": "tsc && node -e \"import('fs').then(fs => { if (!fs.existsSync('dist/db')) fs.mkdirSync('dist/db', {recursive: true}); fs.copyFileSync('src/db/schema.sql', 'dist/db/schema.sql'); if (!fs.existsSync('dist/public')) fs.mkdirSync('dist/public', {recursive: true}); fs.copyFileSync('src/public/index.html', 'dist/public/index.html'); })\"",
     "start": "node dist/server.js",
     "dev": "tsx watch src/server.ts",
     "test": "node --test --test-concurrency=1 --import tsx tests/**/*.test.ts",
