@@ -4,16 +4,25 @@ A high-performance, concurrency-resilient, production-grade RESTful backend serv
 
 ---
 
+### 🌐 Permanent Live Deployment Links
+- 🚀 **Live Interactive Demo**: [https://eventticketingplatformbackend.vercel.app/](https://eventticketingplatformbackend.vercel.app/)
+- 📖 **Live Swagger / OpenAPI Documentation**: [https://eventticketingplatformbackend.vercel.app/api/docs](https://eventticketingplatformbackend.vercel.app/api/docs)
+- 📄 **Machine-Readable OpenAPI JSON**: [https://eventticketingplatformbackend.vercel.app/api/docs.json](https://eventticketingplatformbackend.vercel.app/api/docs.json)
+- 🩺 **Health Check Endpoint**: [https://eventticketingplatformbackend.vercel.app/health](https://eventticketingplatformbackend.vercel.app/health)
+
+---
+
 ## 📑 Table of Contents
-1. [Architecture Overview](#-architecture-overview)
-2. [Data Model & Database Schema](#-data-model--database-schema)
-3. [Concurrency Control & Overbooking Prevention](#-concurrency-control--overbooking-prevention)
-4. [Conflict & Error Handling Strategy](#-conflict--error-handling-strategy)
-5. [API Specification & Endpoints](#-api-specification--endpoints)
-6. [Security Guidelines](#-security-guidelines)
-7. [Bonus Challenges Implemented](#-bonus-challenges-implemented)
-8. [Testing & Race Condition Verification](#-testing--race-condition-verification)
-9. [Deployment Guide (Docker, Railway, Render, Fly.io)](#-deployment-guide)
+1. [Live Demo & Interactive Features](#-permanent-live-deployment-links)
+2. [Architecture Overview](#-architecture-overview)
+3. [Data Model & Database Schema](#-data-model--database-schema)
+4. [Concurrency Control & Overbooking Prevention](#-concurrency-control--overbooking-prevention)
+5. [Conflict & Error Handling Strategy](#-conflict--error-handling-strategy)
+6. [API Specification & Endpoints](#-api-specification--endpoints)
+7. [Security Guidelines](#-security-guidelines)
+8. [Bonus Challenges Implemented](#-bonus-challenges-implemented)
+9. [Testing & Race Condition Verification](#-testing--race-condition-verification)
+10. [Deployment Guide (Vercel, Docker, Railway, Render)](#-deployment-guide)
 
 ---
 
@@ -477,9 +486,15 @@ Located in `tests/concurrency.test.ts`:
 
 ## 🚀 Deployment Guide
 
-### Option 1: Docker & Docker Compose (Recommended for Local & VPS)
-The project includes a multi-stage production `Dockerfile` and `docker-compose.yml` with PostgreSQL 16, Redis 7, and MailHog:
+### Option 1: Vercel Serverless (Permanently Live — Zero Sleep)
+The live deployment is hosted permanently on Vercel:
+- **Live Demo & Dashboard**: [https://eventticketingplatformbackend.vercel.app/](https://eventticketingplatformbackend.vercel.app/)
+- **Live Interactive Swagger UI**: [https://eventticketingplatformbackend.vercel.app/api/docs](https://eventticketingplatformbackend.vercel.app/api/docs)
+- **Live Health Check**: [https://eventticketingplatformbackend.vercel.app/health](https://eventticketingplatformbackend.vercel.app/health)
 
+Serverless functions on Vercel remain permanently live 24/7/365 with zero idling or sleep shutdowns.
+
+### Option 2: Docker & Docker Compose (Local & VPS)
 ```bash
 # 1. Clone repository and navigate to backend directory
 cd D:\Antigravity\Event_ticketing_platform_backend
@@ -492,7 +507,7 @@ docker-compose up --build -d
 # MailHog Web UI:   http://localhost:8025
 ```
 
-### Option 2: Render.com Deployment
+### Option 3: Render.com Deployment
 1. Create a free **PostgreSQL Database** on Render.
 2. Create a new **Web Service** on Render and link your Git repository.
 3. Set Environment Variables:
